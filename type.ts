@@ -71,9 +71,10 @@ function message():void {
     console.log("This is my message");
 }
 
-let unusable: void = undefined;
-unusable = null;
-console.log(unusable);
+// strictNullChecks 설정 비활성화
+// let unusable: void = undefined;
+// unusable = null;
+// console.log(unusable);
 
 console.log(unknown);
 // null, undefined : null과 undefined는 오직 any와 각자 자신들 타입에만 할당 가능 (예외적으로 undefined는 void에 할당 가능 )
