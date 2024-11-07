@@ -8,6 +8,7 @@ var Void = "---------- Void ----------";
 var unknown = "---- null & undefined ----";
 var Never = "---------- never ---------";
 var OBject = "--------- object ---------";
+var assertion = "-------- assertion --------";
 console.log(type);
 // 참&거짓
 var isDone = true;
@@ -90,13 +91,24 @@ function handleAnimal(animal) {
 handleAnimal("cat"); // if문 출력
 handleAnimal("dog"); // else if문 출력
 console.log(OBject);
-// object : number, string, boolean, null, undefined 가 아닌 나머지\
+// object : number, string, boolean, null, undefined 가 아닌 나머지
 function create(o) {
     console.log(o);
 }
 create({ prop: 0 });
 create(null);
-create(51);
-create("string");
-create(undefined);
-create(true);
+// error
+// create(51);
+// create("string");
+// create(undefined);
+// create(true);
+console.log(assertion);
+// 타입 단언 : 컴파일러에게 해당 타입을 강제로 적용
+// 1. angle-bracket문법(<>) 
+var value = 7811710998101114;
+var numberAsString = value.toString();
+console.log(numberAsString);
+// 2. as 문법 (jsx와 같이 사용하는 경우)
+var value2 = 7811710998101114;
+var numberAsString2 = value.toString();
+console.log(numberAsString2);
