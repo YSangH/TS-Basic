@@ -4,6 +4,11 @@ let RP = "------- 읽기 프로퍼티 -------";
 let EPC = "----- 초과 프로퍼티 검사 -----";
 let FT = "-------- 함수 타입 --------";
 let IT = "--------- 인덱서블 타입 --------";
+let CT = "--------- 클래스 타입 --------";
+let EI = "-------- 인터페이스 확장 -------";
+let SI = "------- 스테틱과 인스턴스 ------";
+let HT = "-------- 하이브리드 타입 -------";
+let CEI = "---- 클래스 확장 인터페이스 ----";
 
 console.log(IF);
 // 인터페이스: 객체가 어떤 속성과 메서드를 가져야 하는지 지정
@@ -136,3 +141,144 @@ let myDictionary: NumberDictionary = { length: 5, width: 10 };
 console.log(myDictionary["length"]); // 출력: 5
 
 // 주의 : 키 타입은 string 또는 number만 허용
+
+console.log(CT);
+interface Person {
+  name: string;
+  age: number;
+  greet(): void;
+}
+
+class Employee implements Person {
+  name: string;
+  age: number;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet(): void {
+    console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+  }
+}
+
+const employee = new Employee("Alice", 30);
+employee.greet(); // Hello, my name is Alice and I am 30 years old.
+
+console.log(EI);
+// 기존 인터페이스를 기반으로 새로운 속성이나 메서드를 추가하는 기능
+interface Shape {
+    color: string;
+}
+
+interface Square extends Shape {
+    sideLength: number;
+}
+
+let square = {} as Square;
+square.color = "red";
+square.sideLength = 15;
+
+console.log(square);
+
+console.log(SI);
+// 스테틱과 인스턴스의 차이
+// 스태틱(static):
+// 클래스 자체에 속합니다.
+// 클래스 이름을 통해 직접 접근합니다.
+// 인스턴스와 관련이 없습니다.
+// 인스턴스(instance):
+// 클래스의 인스턴스를 통해 접근합니다.
+// 인스턴스마다 고유의 값을 가질 수 있습니다.
+
+// 스테틱
+class MyClass {
+  static staticProperty = "I belong to the class!";
+  static staticMethod() {
+    console.log("This is a static method.");
+  }
+}
+
+console.log(MyClass.staticProperty); // I belong to the class!
+MyClass.staticMethod(); // This is a static method.
+
+// 인스턴스
+class MyClass2 {
+  instanceProperty = "I belong to an instance!";
+  instanceMethod() {
+    console.log("This is an instance method.");
+  }
+}
+
+const instance = new MyClass2();
+console.log(instance.instanceProperty); // I belong to an instance!
+instance.instanceMethod(); // This is an instance method.
+
+
+console.log(HT);
+// 하이브리드 타입 : 나의 객체가 여러 형태를 가질 수 있도록 정의
+interface Counter {
+  (start: number): string; // 함수 시그니처
+  interval: number;        // 속성
+  reset(): void;           // 메서드
+}
+
+function getCounter(): Counter {
+  const counter = ((start: number) => `Count starts from ${start}`) as Counter;
+  counter.interval = 1000;
+  counter.reset = () => {
+    console.log("Counter reset!");
+  };
+  return counter;
+}
+
+const counter = getCounter();
+console.log(counter(5));         // Count starts from 5
+console.log(counter.interval);    // 1000
+counter.reset();                  // Counter reset!
+
+console.log(CEI);
+//  클래스 확장 인터페이스 
+// 클래스에서 상속한 필드와 메서드 타입을 인터페이스가 받아들여, 
+// 그 클래스의 구조를 기반으로 한 인터페이스를 정의할 수 있는 기능
+
+class Animal1 {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  makeSound(): void {
+    console.log(`${this.name} makes a sound.`);
+  }
+}
+
+interface Pet extends Animal1 {
+  owner: string;
+  play(): void;
+}
+
+class Dog implements Pet {
+  name: string;
+  owner: string;
+
+  constructor(name: string, owner: string) {
+    this.name = name;
+    this.owner = owner;
+  }
+
+  makeSound(): void {
+    console.log(`${this.name} barks!`);
+  }
+
+  play(): void {
+    console.log(`${this.name} is playing with ${this.owner}.`);
+  }
+}
+
+// 사용 예시
+const myDog = new Dog("Buddy", "Alice");
+myDog.makeSound(); // Buddy barks!
+myDog.play();      // Buddy is playing with Alice.
