@@ -3,7 +3,8 @@ const TF = "------ 함수의 타이핑 ------";
 const WF = "------ 함수 타입 작성 ------";
 const ITT = "------ 타입의 추론 ------";
 const ODP = "-- 선택적&기본 매개변수 --";
-
+const RPS = "---- 나머지 매개변수 ----";
+const TA = "---- this와 화살표함수 ----";
 
 console.log(F);
 // 함수
@@ -24,7 +25,7 @@ console.log("error");
 
 console.log(TF);
 // 함수의 타이핑 
-// 각 파라미터와 함수 자신의 반활될 타입을 지정
+// 각 파라미터와 함수 자신의 반환될 타입을 지정
 function Add(x: number, y: number): number {
     return x + y
 };
@@ -101,6 +102,7 @@ let mixed = Math.random() > 0.5 ? "hello" : 42; // string | number
 console.log(mixed);
 
 console.log(ODP);
+// 선택적 매개변수와 기본 매개변수
 // 선택적 매개변수를 원한다면 매개변수 이름 끝에 ? 를 붙여서 선언
 
 // function buildName(firstName: string, lastName?: string) {
@@ -119,8 +121,112 @@ let result3 = buildName("Bob", "Adams", "Sr.");  // 오류, 너무 많은 매개
 let result4 = buildName("Bob", "Adams");         // 정확함
 
 console.log(result1, result2, result3, result4);
-// result1은 Bob undefined, 
+// result1은 Bob undefined,
 // result2는 Bob Adams값이 나오지만 두가지의 매개변수만 필요하기 때문에 세번째 매개변수인 Sr.은 출력되지 않는다.
 
+console.log(RPS);
+// 나머지 매개변수
+// 함수 호출 시 전달되는 나머지 인수를 배열 형태로 수집하는 데 사용
+
+// 기본 문법
+// function 함수이름(필수매개변수: 타입, ...나머지매개변수: 타입[]) {
+//   // 함수 본문
+// }
+
+// 1. 숫자 합산 함수
+function sum(...numbers: number[]): number {
+  return numbers.reduce((acc, curr) => acc + curr, 0);
+}
+
+console.log(sum(1, 2, 3, 4)); // 출력: 10
+console.log(sum()); // 출력: 0
+
+// 2. 문자열 연결 함수
+function concatenate(separator: string, ...strings: string[]): string {
+  return strings.join(separator);
+}
+
+console.log(concatenate(", ", "apple", "banana", "cherry")); // 출력: "apple, banana, cherry"
+console.log(concatenate(" - ", "React", "TypeScript")); // 출력: "React - TypeScript"
+
+// 3. 혼합된 매개변수 처리
+function greet(greeting: string, ...names: string[]): void {
+  names.forEach((name) => {
+    console.log(`${greeting}, ${name}!`);
+  });
+}
+
+greet("Hello", "Alice", "Bob", "Charlie");
+// 출력:
+// Hello, Alice!
+// Hello, Bob!
+// Hello, Charlie!
+
+console.log(TA);
+// this 기본 동작
+// this는 함수가 호출된 컨텍스트(문맥)에 따라 값이 결정, 타입스크립트에서도 동일하게 동작
+class Person1 {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  greet() {
+    console.log(`Hello, my name is ${this.name}.`);
+  }
+}
+
+const person1 = new Person1("Alice");
+person1.greet(); // "Hello, my name is Alice."
+
+// 2. 화살표 함수와 this
+// 화살표 함수는 렉시컬 바인딩 사용
+// * 렉시컬 바인딩은 프로그래밍 언어에서 변수의 스코프가 변수 선언 위치에 따라 결정되고, 코드가 작성된 구조에 따라 바인딩되는 방식
+// this는 화살표 함수가 선언된 위치에서의 this 값을 그대로 유지
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  greet1 = () => {
+    console.log(`Hello, my name is ${this.name}.`);
+  };
+}
+
+const person = new Person("Alice");
+const unboundGreet = person.greet1;
+unboundGreet(); // "Hello, my name is Alice."
+
+// 3. 타입스크립트에서 this 명시
+function showInfo(this: { name: string; age: number }) {
+  console.log(`Name: ${this.name}, Age: ${this.age}`);
+}
+
+const userInfo = { name: "Bob", age: 30 };
+
+// call을 통해 this 바인딩
+showInfo.call(userInfo); // 출력: "Name: Bob, Age: 30"
+
+// showInfo(); // 오류: 'this'가 명시된 타입에 맞지 않음
+
+// 4. 화살표 함수와 일반 함수의 혼합 사용
+class Button {
+  label: string;
+
+  constructor(label: string) {
+    this.label = label;
+  }
+
+  handleClick = () => {
+    console.log(`Button clicked: ${this.label}`);
+  };
+}
+
+const button = new Button("Submit");
+const callback = button.handleClick;
+callback(); // "Button clicked: Submit"
 
 
