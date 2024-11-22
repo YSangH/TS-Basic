@@ -5,6 +5,7 @@ const ITT = "------ 타입의 추론 ------";
 const ODP = "-- 선택적&기본 매개변수 --";
 const RPS = "---- 나머지 매개변수 ----";
 const TA = "---- this와 화살표함수 ----";
+const FO = "---- 함수 오버로드 ----";
 
 console.log(F);
 // 함수
@@ -229,4 +230,25 @@ const button = new Button("Submit");
 const callback = button.handleClick;
 callback(); // "Button clicked: Submit"
 
+console.log(FO);
+// 함수 오버로드
+// 동일한 함수 이름을 사용하지만,
+// 다양한 인수 목록이나 반환 타입을 허용하는 기능을 의미
+
+// 1. 오버로드 시그니처 선언
+
+function add2(x: number, y: number): number;
+function add2(x: string, y: string): string;
+
+// 2. 실제 구현
+function add2(x: any, y: any): any {
+    return x + y;
+}
+
+// 사용 예제
+let sum2 = add2(10, 20); // 결과는 숫자 30
+let concatenation = add2("Hello", "World"); // 결과는 문자열 "HelloWorld"
+
+console.log(sum2); // 출력: 30
+console.log(concatenation); // 출력: HelloWorld
 

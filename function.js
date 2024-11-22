@@ -5,6 +5,7 @@ var ITT = "------ 타입의 추론 ------";
 var ODP = "-- 선택적&기본 매개변수 --";
 var RPS = "---- 나머지 매개변수 ----";
 var TA = "---- this와 화살표함수 ----";
+var FO = "---- 함수 오버로드 ----";
 console.log(F);
 // 함수
 // 기명 함수
@@ -195,3 +196,13 @@ var Button = /** @class */ (function () {
 var button = new Button("Submit");
 var callback = button.handleClick;
 callback(); // "Button clicked: Submit"
+console.log(FO);
+// 2. 실제 구현
+function add2(x, y) {
+    return x + y;
+}
+// 사용 예제
+var sum2 = add2(10, 20); // 결과는 숫자 30
+var concatenation = add2("Hello", "World"); // 결과는 문자열 "HelloWorld"
+console.log(sum2); // 출력: 30
+console.log(concatenation); // 출력: HelloWorld
