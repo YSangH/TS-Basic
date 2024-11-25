@@ -127,7 +127,7 @@ console.log(result1, result2, result3, result4);
 
 console.log(RPS);
 // 나머지 매개변수
-// 함수 호출 시 전달되는 나머지 인수를 배열 형태로 수집하는 데 사용
+// 함수 호출 시 전달되는 나머지 인수를 배열 형태로 수집하는데 사용
 
 // 기본 문법
 // function 함수이름(필수매개변수: 타입, ...나머지매개변수: 타입[]) {
@@ -181,7 +181,7 @@ class Person1 {
 const person1 = new Person1("Alice");
 person1.greet(); // "Hello, my name is Alice."
 
-// 2. 화살표 함수와 this
+// 화살표 함수와 this
 // 화살표 함수는 렉시컬 바인딩 사용
 // * 렉시컬 바인딩은 프로그래밍 언어에서 변수의 스코프가 변수 선언 위치에 따라 결정되고, 코드가 작성된 구조에 따라 바인딩되는 방식
 // this는 화살표 함수가 선언된 위치에서의 this 값을 그대로 유지
@@ -201,7 +201,7 @@ const person = new Person("Alice");
 const unboundGreet = person.greet1;
 unboundGreet(); // "Hello, my name is Alice."
 
-// 3. 타입스크립트에서 this 명시
+// 타입스크립트에서 this 명시
 function showInfo(this: { name: string; age: number }) {
   console.log(`Name: ${this.name}, Age: ${this.age}`);
 }
@@ -213,7 +213,7 @@ showInfo.call(userInfo); // 출력: "Name: Bob, Age: 30"
 
 // showInfo(); // 오류: 'this'가 명시된 타입에 맞지 않음
 
-// 4. 화살표 함수와 일반 함수의 혼합 사용
+// 화살표 함수와 일반 함수의 혼합 사용
 class Button {
   label: string;
 
@@ -235,7 +235,7 @@ console.log(FO);
 // 동일한 함수 이름을 사용하지만,
 // 다양한 인수 목록이나 반환 타입을 허용하는 기능을 의미
 
-// 1. 오버로드 시그니처 선언
+// 오버로드 시그니처 선언
 
 function add2(x: number, y: number): number;
 function add2(x: string, y: string): string;
