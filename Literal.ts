@@ -10,7 +10,7 @@ console.log(LN);
 // 하지만 const로 변수 선언시 해당 객체는 변하지 않음을 알린다.
 
 let hi = "Hi";   // 문자열 선언
-const hello = "Hello"; // Hello World이라는 타입으로 선언
+const hello = "Hello"; // Hello 라는 타입으로 선언
 
 console.log(hi);
 console.log(hello);
