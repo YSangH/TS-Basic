@@ -1,6 +1,34 @@
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var U = "---- 유니온 타입 ----";
 var UWCF = "---- 공통 필드 유니온 ----";
 var DU = "---- 유니온 구별 ----";
+var IST = "---- 교차 타입 ----";
+var MV = "---- 교차 믹스인 ----";
 console.log(U);
 // 하나 이상의 타입을 허용하는 타입입니다.
 // 변수, 함수 매개변수, 반환값 등에 대해 서로 다른 여러 타입을 지정
@@ -89,3 +117,74 @@ function getCircleInfo(shape) {
     }
     return "Not a circle";
 }
+console.log(IST);
+var personal = {
+    name: "Alice",
+    age: 30,
+};
+// 주의
+// 교차 타입은 겹치는 속성이 있을 경우 공통적인 타입으로 좁혀짐
+// 호환되지 않는 타입을 결합하면 오류가 발생
+// 에러 경우
+// type C = { value: string };
+// type D = { value: number };
+// // 오류 발생: string과 number는 교차 불가
+// type CD = C & D;
+console.log(MV);
+var flyMixin = {
+    fly: function () { return console.log("Flying!"); },
+};
+var swimMixin = {
+    swim: function () { return console.log("Swimming!"); },
+};
+// 교차 타입 생성
+var flyingFish = __assign(__assign({}, flyMixin), swimMixin);
+flyingFish.fly(); // Flying!
+flyingFish.swim(); // Swimming!
+var animal = /** @class */ (function () {
+    function animal() {
+    }
+    animal.prototype.walk = function () {
+        console.log("Walking!");
+    };
+    animal.prototype.run = function () {
+        console.log("Running!");
+    };
+    return animal;
+}());
+var dog = new animal();
+dog.walk(); // Walking!
+dog.run(); // Running!
+function Eater(Base) {
+    return /** @class */ (function (_super) {
+        __extends(class_1, _super);
+        function class_1() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        class_1.prototype.eat = function () {
+            console.log("Eating!");
+        };
+        return class_1;
+    }(Base));
+}
+function Sleeper(Base) {
+    return /** @class */ (function (_super) {
+        __extends(class_2, _super);
+        function class_2() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        class_2.prototype.sleep = function () {
+            console.log("Sleeping!");
+        };
+        return class_2;
+    }(Base));
+}
+var Personal = /** @class */ (function () {
+    function Personal() {
+    }
+    return Personal;
+}());
+var MixedPerson = Sleeper(Eater(Personal));
+var human = new MixedPerson();
+human.eat(); // Eating!
+human.sleep(); // Sleeping!

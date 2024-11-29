@@ -156,7 +156,7 @@ const swimMixin: Swimmable = {
 };
 
 // 교차 타입 생성
-const flyingFish: Flyable & Swimmable = Object.assign({}, flyMixin, swimMixin);
+const flyingFish: Flyable & Swimmable = { ...flyMixin, ...swimMixin };
 
 flyingFish.fly(); // Flying!
 flyingFish.swim(); // Swimming!

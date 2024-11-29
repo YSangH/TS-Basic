@@ -1,34 +1,35 @@
+"use strict";
 // console.log용 영역 구분선
-var type = "----------- 타입 ---------";
-var array = "----------- 배열 ---------";
-var tuple = "----------- 튜플 ---------";
-var Enum = "----------- 열거 ---------";
-var Any = "---------- Any -----------";
-var Void = "---------- Void ----------";
-var unknown = "---- null & undefined ----";
-var Never = "---------- never ---------";
-var OBject = "--------- object ---------";
-var assertion = "-------- assertion --------";
+let type = "----------- 타입 ---------";
+let array = "----------- 배열 ---------";
+let tuple = "----------- 튜플 ---------";
+let Enum = "----------- 열거 ---------";
+let Any = "---------- Any -----------";
+let Void = "---------- Void ----------";
+let unknown = "---- null & undefined ----";
+let Never = "---------- never ---------";
+let OBject = "--------- object ---------";
+let assertion = "-------- assertion -------";
 console.log(type);
 // 참&거짓
-var isDone = true;
+let isDone = true;
 console.log(isDone); // true출력
 // 숫자d
-var ten = 10;
+let ten = 10;
 console.log(ten); // 10 출력
 // 문자
-var language = "kor";
+let language = "kor";
 console.log(language); // kor 출력
 console.log(array);
 //[] 배열
-var list = [12, 46, 24];
+let list = [12, 46, 24];
 console.log(list); // 12, 46, 24 출력
 // 제네릭
-var apb = ["a", "b", "c"];
+let apb = ["a", "b", "c"];
 console.log(apb); // a, b, c 출력
 console.log(tuple);
 // 튜플 : 배열내에 각각 타입설정 
-var multy;
+let multy;
 multy = ["qwer", 1234];
 console.log(multy); // correct: qwer, 1234 출력
 // multy = [ 4567, "zxcv"]; // error
@@ -44,7 +45,7 @@ var Animal;
     Animal[Animal["cat"] = 1] = "cat";
     Animal[Animal["fish"] = 2] = "fish";
 })(Animal || (Animal = {}));
-var c = Animal.rabbit;
+let c = Animal.rabbit;
 console.log(c); // rabbit은 0, cat은 1, fish는 2번의 번호를 지니므로 0 출력
 var Color;
 (function (Color) {
@@ -52,13 +53,13 @@ var Color;
     Color[Color["green"] = 5] = "green";
     Color[Color["blue"] = 8] = "blue";
 })(Color || (Color = {}));
-var C = Color.green;
+let C = Color.green;
 console.log(C); // greend은 5번으로 설정했으므로 5 출력
-var animalSpecies = Animal[1];
+let animalSpecies = Animal[1];
 console.log(animalSpecies); // Animal 1번 인덱스에 있는 cat 출력 2번 인덱스로 바꾸면 fish로 출력
 console.log(Any);
 // any : 모든 타입 할당 가능
-var thing = 100;
+let thing = 100;
 thing = "str?ing";
 thing = false;
 console.log(thing); // 마지막에 할당된 false 출력
@@ -67,13 +68,14 @@ console.log(Void);
 function message() {
     console.log("This is my message");
 }
-var unusable = undefined;
-unusable = null;
-console.log(unusable);
+// strictNullChecks 설정 비활성화
+// let unusable: void = undefined;
+// unusable = null;
+// console.log(unusable);
 console.log(unknown);
 // null, undefined : null과 undefined는 오직 any와 각자 자신들 타입에만 할당 가능 (예외적으로 undefined는 void에 할당 가능 )
-var n = null;
-var u = undefined;
+let n = null;
+let u = undefined;
 console.log(n, u);
 console.log(Never);
 function handleAnimal(animal) {
@@ -84,7 +86,7 @@ function handleAnimal(animal) {
         console.log("It's a dog!");
     }
     else {
-        var neverValue = animal; // 이 부분은 절대 실행되지 않음
+        const neverValue = animal; // 이 부분은 절대 실행되지 않음
         console.log(neverValue);
     }
 }
@@ -105,10 +107,10 @@ create(null);
 console.log(assertion);
 // 타입 단언 : 컴파일러에게 해당 타입을 강제로 적용
 // 1. angle-bracket문법(<>) 
-var value = 7811710998101114;
-var numberAsString = value.toString();
+let value = 7811710998101114;
+let numberAsString = value.toString();
 console.log(numberAsString);
 // 2. as 문법 (jsx와 같이 사용하는 경우)
-var value2 = 7811710998101114;
-var numberAsString2 = value.toString();
+let value2 = 7811710998101114;
+let numberAsString2 = value.toString();
 console.log(numberAsString2);
