@@ -3,6 +3,10 @@ const Inheritance = "---- 상속 ----";
 const AccessController = "---- 접근제어자 ----";
 const ReadonlyModifier = "---- 읽기전용 지정자 ----";
 const ParameterProperties = "---- 매개변수 프로퍼티 ----";
+const Accessors = "---- 접근자 ----";
+const StaticProperties = "---- 전역 프로퍼티 ----";
+const Abstract = "---- 추상 메서드 ----";
+const ConstructorFunctions = "---- 생성자 함수 ----"; 
 
 console.log(Class);
 class Architecture {
@@ -138,3 +142,111 @@ class Food {
     this.kcal = kcal;
   }
 }
+
+
+console.log(Accessors);
+// 접근자
+// 객체의 멤버에 대한 접근을 가로채는 방식으로 getters/setters를 지원
+
+class Hero {
+  private _name: string;
+
+  constructor(name: string) {
+    this._name = name;
+  }
+
+  public get name(): string {
+    return this._name;
+  }
+
+  public set name(newName: string) {
+    if (newName.length > 0) {
+      this._name = newName;
+    } else {
+      throw new Error('Name cannot be empty');
+    }
+  }
+}
+
+const hero = new Hero('Iron Man');
+console.log(hero.name); // Iron Man
+hero.name = 'Spider Man'; // Setter 호출
+console.log(hero.name); // Spider Man
+
+console.log(StaticProperties);
+// 전역 프로퍼티
+// 특정 스코프에 속하지 않고 어디서든 접근 가능한 변수를 의미
+
+class MyStaticClass {
+  static staticProperty: string = "I am static!";
+
+  static staticMethod() {
+    console.log(`Static Property: ${this.staticProperty}`);
+  }
+}
+
+// Accessing static properties and methods
+console.log(MyStaticClass.staticProperty); // "I am static!"
+MyStaticClass.staticMethod(); // "Static Property: I am static!"
+
+
+console.log(Abstract);
+// 추상메서드
+// abstract 키워드 사용:
+// abstract 키워드로 클래스 또는 메서드를 선언
+
+// 추상 메서드는 선언만 하고, 구체적인 구현은 하위 클래스에서 작성
+
+// 인스턴스화 불가:
+// 추상 클래스 자체로는 객체를 생성 불가
+
+// 상속 및 구현 강제:
+// 추상 클래스는 하위 클래스에서 반드시 구현해야 할 메서드나 속성을 정의
+
+abstract class character {
+  abstract action(): void; // 추상 메서드 (구현 없음)
+
+  move(): void {
+    console.log("Moving...");
+  }
+}
+
+class Archor extends character {
+  action(): void {
+    console.log("attack!");
+  }
+}
+
+const archor = new Archor();
+archor.action(); // "attack!"
+archor.move(); // "Moving..."
+
+// const animal = new Animal(); // 에러: 추상 클래스는 인스턴스화할 수 없습니다.
+
+console.log(ConstructorFunctions);
+// 생성자 함수
+// 클래스의 인스턴스를 초기화하기 위해 호출되는 특수한 메서드
+// constructor 키워드를 사용하여 정의
+// 객체 생성 시 필요한 초기값을 설정 및 초기 로직을 실행
+
+// 특징
+// 클래스의 인스턴스 생성 시 자동 호출
+// 단 한 번만 실행되며, 객체 초기화 역할
+// 매개변수를 통해 인스턴스를 생성할 때 필요한 값을 전달받음
+
+class Stone {
+  name: string;
+  hardness: string;
+
+  constructor(name: string, hardness: string) {
+    this.name = name; // 인스턴스 변수 초기화
+    this.hardness = hardness;
+  }
+
+  StoneInfo(): void {
+    console.log(`stone : ${this.name} , hardness : ${this.hardness}.`);
+  }
+}
+
+const myStone = new Stone("Garnet", "7.0"); // 생성자 호출
+myStone.StoneInfo(); // This car is a Toyota from 2022.
