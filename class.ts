@@ -203,7 +203,7 @@ console.log(Abstract);
 // 상속 및 구현 강제:
 // 추상 클래스는 하위 클래스에서 반드시 구현해야 할 메서드나 속성을 정의
 
-abstract class character {
+abstract class Character {
   abstract action(): void; // 추상 메서드 (구현 없음)
 
   move(): void {
@@ -211,7 +211,7 @@ abstract class character {
   }
 }
 
-class Archor extends character {
+class Archor extends Character {
   action(): void {
     console.log("attack!");
   }
@@ -221,7 +221,7 @@ const archor = new Archor();
 archor.action(); // "attack!"
 archor.move(); // "Moving..."
 
-// const animal = new Animal(); // 에러: 추상 클래스는 인스턴스화할 수 없습니다.
+// const character = new Character(); // 에러: 추상 클래스는 인스턴스화할 수 없습니다.
 
 console.log(ConstructorFunctions);
 // 생성자 함수
@@ -244,9 +244,9 @@ class Stone {
   }
 
   StoneInfo(): void {
-    console.log(`stone : ${this.name} , hardness : ${this.hardness}.`);
+    console.log(`stone : ${this.name} , hardness : ${this.hardness}`);
   }
 }
 
 const myStone = new Stone("Garnet", "7.0"); // 생성자 호출
-myStone.StoneInfo(); // This car is a Toyota from 2022.
+myStone.StoneInfo(); // stone : Garnet , hardness : 7.0
