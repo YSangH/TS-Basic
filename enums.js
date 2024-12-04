@@ -1,9 +1,14 @@
 var NumbericEnums = "-- 숫자 열거형 --";
 var StringEnums = "-- 문자 열거형 --";
-var HeterogeneousEnum = "-- 문자 열거형 --";
+var HeterogeneousEnum = "-- 이종 열거형 --";
 var CACM = "-- 계산된 멤버와 상수 멤버 --";
 var UnionEnums = "-- 유니온 열거형 --";
 var EnumMemberTypes = "-- 열거형 멤버 타입 --";
+var Runtime = "-- 런타임 열거형 --";
+var Compile = "-- 컴파일 열거형 --";
+var Reverse = "-- 역방향 매핑 --";
+var Const = "-- 상수형 열거 --";
+var Ambient = "-- Ambient 열거형 --";
 // 열거형
 // 이름이 있는 상수들의 집합을 정의
 // 변수 앞에 enum을 붙혀준다.
@@ -124,3 +129,49 @@ function updateOrderStatus(status) {
 updateOrderStatus(OrderStatus.Pending); // Valid
 updateOrderStatus(OrderStatus.Shipped); // Valid
 // updateOrderStatus(OrderStatus.Delivered); // Error: 'OrderStatus.Delivered' is not assignable
+console.log(Runtime);
+// 런타임 열거형
+// 런타임에 존재하는 실제 객체
+var Alphabet;
+(function (Alphabet) {
+    Alphabet[Alphabet["X"] = 0] = "X";
+    Alphabet[Alphabet["Y"] = 1] = "Y";
+    Alphabet[Alphabet["Z"] = 2] = "Z";
+})(Alphabet || (Alphabet = {}));
+function f(obj) {
+    return obj.X;
+}
+f(Alphabet);
+// E가 X라는 숫자 프로퍼티를 가지고 있기 때문에 동작하는 코드
+console.log(f(Alphabet));
+console.log(Compile);
+var nowStatus = 1 /* State.Active */;
+console.log(nowStatus); // 컴파일 시 1로 대체
+//컴파일 결과(JS코드)
+// const nowStatus = 1;
+// console.log(nowStatus);
+console.log(Reverse);
+// 역방향 매핑
+// 숫자형 열거에서 지원하는 기능
+// 열거형의 키→값 혹은 값→키 접근 가능
+// 문자형은 역방향 매핑이 불가능하다.
+var Colors;
+(function (Colors) {
+    Colors[Colors["Red"] = 0] = "Red";
+    Colors[Colors["Green"] = 1] = "Green";
+    Colors[Colors["Blue"] = 2] = "Blue";
+})(Colors || (Colors = {}));
+console.log(Colors.Red); // 0 (키로 값 접근)
+console.log(Colors[1]); // "Green" (값으로 키 접근)
+console.log(Colors[2]); // "Blue"
+console.log(Const);
+var today = 1 /* Days.Monday */;
+console.log(today); // 컴파일 시 1로 대체
+console.log(Ambient);
+// 외부 구현체가 제공된다고 가정
+const HttpStatus = {
+  OK: 200,
+  NotFound: 404,
+  InternalServerError: 500,
+};
+console.log(HttpStatus.OK); // 출력: 200 (외부 구현체로 동작)

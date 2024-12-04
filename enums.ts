@@ -1,9 +1,14 @@
 const NumbericEnums = "-- 숫자 열거형 --";
 const StringEnums = "-- 문자 열거형 --";
-const HeterogeneousEnum = "-- 문자 열거형 --";
+const HeterogeneousEnum = "-- 이종 열거형 --";
 const CACM = "-- 계산된 멤버와 상수 멤버 --";
 const UnionEnums = "-- 유니온 열거형 --";
-const EnumMemberTypes = "-- 열거형 멤버 타입 --"
+const EnumMemberTypes = "-- 열거형 멤버 타입 --";
+const Runtime = "-- 런타임 열거형 --";
+const Compile = "-- 컴파일 열거형 --";
+const Reverse = "-- 역방향 매핑 --";
+const Const = "-- 상수형 열거 --";
+const Ambient = "-- Ambient 열거형 --";
 
 // 열거형
 // 이름이 있는 상수들의 집합을 정의
@@ -152,14 +157,81 @@ updateOrderStatus(OrderStatus.Pending);  // Valid
 updateOrderStatus(OrderStatus.Shipped);  // Valid
 // updateOrderStatus(OrderStatus.Delivered); // Error: 'OrderStatus.Delivered' is not assignable
 
+console.log(Runtime);
+// 런타임 열거형
+// 런타임에 존재하는 실제 객체
+
+enum Alphabet {
+    X, Y, Z
+}
+
+function f(obj: { X: number }) {
+    return obj.X;
+}
+f(Alphabet);
+// E가 X라는 숫자 프로퍼티를 가지고 있기 때문에 동작하는 코드
+console.log(f(Alphabet));
+
+console.log(Compile);
+// 컴파일 시점 열거형
+// 상수 열거형(const enum)을 사용해 생성
+// 컴파일러가 열거형을 상수로 직접 인라인 처리하여 성능을 최적화
+const enum State {
+  Active = 1,
+  Inactive,
+  Pending,
+}
+
+const nowStatus = State.Active;
+console.log(nowStatus); // 컴파일 시 1로 대체
+
+//컴파일 결과(JS코드)
+// const nowStatus = 1;
+// console.log(nowStatus);
+
+console.log(Reverse);
+// 역방향 매핑
+// 숫자형 열거에서 지원하는 기능
+// 열거형의 키→값 혹은 값→키 접근 가능
+// 문자형은 역방향 매핑이 불가능하다.
+enum Colors {
+  Red = 0,
+  Green = 1,
+  Blue = 2,
+}
+
+console.log(Colors.Red);    // 0 (키로 값 접근)
+console.log(Colors[1]);     // "Green" (값으로 키 접근)
+console.log(Colors[2]);     // "Blue"
 
 
+console.log(Const);
+// 상수형 열거
+// 직접 값으로 인라인 처리되어 런타임 오버헤드가 없다
+// 역방향 매핑이 지원되지 않는다.
 
+const enum Days {
+  Monday = 1,
+  Tuesday,
+  Wednesday,
+}
 
+const today = Days.Monday;
+console.log(today); // 컴파일 시 1로 대체
 
+console.log(Ambient);
+// Ambient 열거형
+// declare 키워드를 사용하여 외부에서 정의된 열거형을 타입스크립트에 알려줄 때 사용
+// Ambient 열거형 (타입 정의)
 
+declare enum HttpStatus {
+  OK = 200,
+  NotFound = 404,
+  InternalServerError = 500,
+}
 
-
+// 외부 구현체가 제공된다고 가정
+console.log(HttpStatus.OK); // 출력: 200 (외부 구현체로 동작)
 
 
 
